@@ -14,7 +14,7 @@ def home(request):
 class SignUp(CreateView):
     form_class = SignUpForm
     template_name = "accounts/signup.html" 
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('top')
 
     def form_valid(self, form):
         user = form.save() # formの情報を保存
