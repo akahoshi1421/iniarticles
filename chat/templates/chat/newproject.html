@@ -12,17 +12,17 @@
     <a href="{% url 'top' %}">プロジェクト一覧に戻る</a>
     <form action="{% url 'make_project' %}" method="POST" name="form">
         {% csrf_token %}
-        <dev>
+        <div>
             <label>プロジェクト名</label>
             <input type="text" name="name">
-        </dev>
-        <dev>
+        </div>
+        <div>
             <label>プロジェクト一覧ページに追加する</label>
             <input type="checkbox" name="on_public" value="False">
-        </dev>
-        <dev>
+        </div>
+        <div>
             <input type="submit">
-        </dev>
+        </div>
     </form>
 </body>
 </html>

@@ -15,4 +15,4 @@ class Article(models.Model):
     prj = models.ForeignKey("Project", on_delete=models.CASCADE)#プロジェクトデータへの外部キー
     title = models.CharField(max_length=100)#タイトル
     update_at = models.DateTimeField(default=timezone.now)#更新日時
-    content = models.TextField()#内容
+    content = models.TextField(blank=True, null=True)#内容
