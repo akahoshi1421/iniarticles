@@ -6,9 +6,18 @@
     <title>Chat Rooms</title>
 </head>
 <body>
+    <a href="{% url 'make_project' %}">プロジェクト新規作成</a>
     What chat room would you like to enter?<br/>
     <input id="room-name-input" type="text" size="100"/><br/>
     <input id="room-name-submit" type="button" value="Enter"/>
+    {% for Pro_data in Project_data %}
+    {% if Pro_data.on_public %}
+    <tr>
+        <td><a href="{% url 'project' Pro_data.id %}">{{ Pro_data.name }}</a></td>
+        <td>{{ Pro_data.created_at }}</td>
+    </tr>
+    {% endif %}
+    {% endfor %}
 
     <script>
         document.querySelector('#room-name-input').focus();
