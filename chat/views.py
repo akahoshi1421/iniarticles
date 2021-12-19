@@ -1,11 +1,11 @@
 from django.utils import timezone
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.utils.safestring import mark_safe
 from django.http import HttpResponse
 import json
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from chat.models import Project
+from chat.models import Project, Article
 
 # Create your views here.
 @login_required
@@ -22,7 +22,15 @@ def room(request, room_name):
 
 @login_required
 def project(request, project_id):
-    return HttpResponse("project")
+    data = {"prj_id": project_id}
+    l = []
+    articles = Article.objects.all()
+    for article1 in articles:
+        if article1.prj.id == project_id:
+          l.append(article1)
+    
+    data["articles"] = l 
+    return render(request, "chat/article.html", data)
 
 @login_required
 def article(request, project_id, article_id):
@@ -45,7 +53,14 @@ def make_project(request):
 
 @login_required
 def make_article(request, project_id):
-    return HttpResponse("make_article")
+    data = {"prj_id": project_id}
+    if request.method == "POST":
+        name = request.POST["name"]
+        new = Article(prj = Project(id = project_id), title = name)
+        new.save()
+        return redirect("project", project_id)
+
+    return render(request, "chat/newarticle.html", data)
 
 @login_required
 def invite_project(request, project_id):

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>article</title>
+</head>
+<body>
+    <h1>記事一覧</h1>
+    <a href="{% url 'make_article' prj_id %}">記事を作成</a>
+    <a href="{% url 'top' %}">プロジェクト一覧に戻る</a>
+    <table>
+    {% for article in articles %}
+        <tr>
+            <td><a href="{% url 'article' prj_id article.id %}">{{article.title}}</a></td>
+            <td>{{article.update_at}}</td>
+        </tr>
+    {% endfor %}
+    </table>
+</body>
+</html>

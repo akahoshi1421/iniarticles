@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<!-- chat/templates/chat/newproject.html -->
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>newarticle</title>
+</head>
+<body>
+    <h2>記事作成</h2>
+    <a href="{% url 'project' prj_id %}">プロジェクト一覧に戻る</a>
+    <form action="{% url 'make_article' prj_id %}" method="POST" name="form">
+        {% csrf_token %}
+        <div>
+            <label>記事名</label>
+            <input type="text" name="name">
+        </div>
+        <div>
+            <input type="submit">
+        </div>
+    </form>
+</body>
+</html>
