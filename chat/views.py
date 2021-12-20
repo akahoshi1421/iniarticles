@@ -1,11 +1,12 @@
 from django.utils import timezone
 from django.shortcuts import redirect, render
 from django.utils.safestring import mark_safe
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 import json
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from chat.models import Project, Article
+import markdown
 
 # Create your views here.
 @login_required
@@ -13,6 +14,7 @@ def index(request):
     Project_data = Project.objects.all()
     data = {'Project_data': Project_data}
     return render(request, 'chat/index.html', data)
+
 
 @login_required
 def room(request, room_name):
@@ -77,3 +79,20 @@ def search_project(request):
 @login_required
 def search_article(request, project_id):
     return HttpResponse("search_article")
+
+
+@csrf_exempt
+def make(request):
+    if request.method == "POST":
+        a = request.POST["data"]
+        try:
+            result = Article.objects.get(room_name = a)
+        except:
+            new = Article(text = "" ,room_name = a)
+            new.save()
+    
+        result = Article.objects.get(room_name = a)
+        data = {"data": result.text, "data_markdown":markdown.markdown(result.text)}
+        return JsonResponse(data)
+        
+    return HttpResponse("ERROR")

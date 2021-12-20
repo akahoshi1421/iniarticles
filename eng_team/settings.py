@@ -130,6 +130,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Channels
 ASGI_APPLICATION = 'eng_team.asgi.application'
 
+
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'login'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}

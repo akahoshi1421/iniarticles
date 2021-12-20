@@ -1,4 +1,4 @@
-# chat/urls.py
+from os import name
 from django.urls import path
 from . import views
 urlpatterns = [
@@ -12,3 +12,4 @@ urlpatterns = [
     path('searchprojects/', views.search_project, name='search_project'),
     path('<int:project_id>/searcharticles/', views.search_article, name='search_article'),
 ]
+
