@@ -1,20 +1,26 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <title>article</title>
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="{% static 'js/article.js' %}"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 </head>
-<body>
-    <h1>記事一覧</h1>
-    <a href="{% url 'make_article' prj_id %}">記事を作成</a>
-    <a href="{% url 'top' %}">プロジェクト一覧に戻る</a>
-    <table>
-    {% for article in articles %}
-        <tr>
-            <td><a href="{% url 'article' prj_id article.id %}">{{article.title}}</a></td>
-            <td>{{article.update_at}}</td>
-        </tr>
-    {% endfor %}
-    </table>
+<body class="container">
+    <h1>記事名:{{article_1.title}}</h1>
+    <b>ウィンドウの画面を広げて使わないとマークダウンが見えないので注意してください(デザインで後で直す)</b>
+    <p>記事番号:<span id="name">{{article_id}}</span></p><br>
+    <p>最終変更:<span id="time">{{article_1.update_at}}</span></p>
+    <a href={% url 'invite_article' prj_id article_id %}>記事に招待</a>
+    <div class="row my_grid">
+        <div class="col-6">
+            <textarea rows="100" cols="70" id="text">{{article_1.content}}</textarea>
+        </div>
+        <div class="col-6">
+            <div id = "md">{{article_md}}</div>
+        </div>
+    </div>
 </body>
 </html>

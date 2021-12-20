@@ -32,11 +32,26 @@ def project(request, project_id):
           l.append(article1)
     
     data["articles"] = l 
-    return render(request, "chat/article.html", data)
+    return render(request, "chat/articles.html", data)
 
 @login_required
 def article(request, project_id, article_id):
-    return HttpResponse("article")
+    data = {"article_id": article_id, "prj_id": project_id}
+    article_1 = Article.objects.get(id = article_id)
+    article_result = {
+        "update_at": str(article_1.update_at),
+        "title": article_1.title
+    }
+    if article_1.content:
+        article_result["content"] = article_1.content
+        data["article_md"] = mark_safe(markdown.markdown(article_1.content))
+    else:
+        article_result["content"] = ""
+        data["article_md"] = mark_safe("")
+
+    data["article_1"] = article_result
+    
+    return render(request, "chat/article.html", data)
 
 @login_required
 def make_project(request):
@@ -79,20 +94,3 @@ def search_project(request):
 @login_required
 def search_article(request, project_id):
     return HttpResponse("search_article")
-
-
-@csrf_exempt
-def make(request):
-    if request.method == "POST":
-        a = request.POST["data"]
-        try:
-            result = Article.objects.get(room_name = a)
-        except:
-            new = Article(text = "" ,room_name = a)
-            new.save()
-    
-        result = Article.objects.get(room_name = a)
-        data = {"data": result.text, "data_markdown":markdown.markdown(result.text)}
-        return JsonResponse(data)
-        
-    return HttpResponse("ERROR")
