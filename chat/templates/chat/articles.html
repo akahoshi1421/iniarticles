@@ -6,6 +6,7 @@
 </head>
 <body>
     <h1>記事一覧</h1>
+    <p>あなたのユーザ名:{{user.username}} ユーザID:{{user.id}}</p>
     <a href="{% url 'make_article' prj_id %}">記事を作成</a>
     <a href="{% url 'top' %}">プロジェクト一覧に戻る</a>
     <a href="{% url 'invite_project' prj_id %}">プロジェクトに招待</a>

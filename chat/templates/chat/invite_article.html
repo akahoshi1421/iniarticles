@@ -6,6 +6,7 @@
 </head>
 <body>
     <h1>記事にユーザを招待する</h1>
+    <p>あなたのユーザ名:{{user.username}} ユーザID:{{user.id}}</p>
     <form action="{% url 'invite_article' prj article %}" method="POST" name="form">
         {% csrf_token %}
         <div>

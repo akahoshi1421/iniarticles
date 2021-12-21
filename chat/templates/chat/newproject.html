@@ -9,6 +9,7 @@
 </head>
 <body>
     <h2>プロジェクト新規作成</h2>
+    <p>あなたのユーザ名:{{user.username}} ユーザID:{{user.id}}</p>
     <a href="{% url 'top' %}">プロジェクト一覧に戻る</a>
     <form action="{% url 'make_project' %}" method="POST" name="form">
         {% csrf_token %}

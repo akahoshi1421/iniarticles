@@ -6,6 +6,7 @@
     <title>Chat Rooms</title>
 </head>
 <body>
+    <p>あなたのユーザ名:{{user.username}} ユーザID:{{user.id}}</p>
     <a href="{% url 'make_project' %}">プロジェクト新規作成</a>
     <table>
         {% for Pro_data in Project_data %}
