@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{Invite_prj</title>
+</head>
+<body>
+    <h1>プロジェクトにユーザを招待する</h1>
+    <form action="{% url 'invite_project' prj %}" method="POST" name="form">
+        {% csrf_token %}
+        <div>
+            <input type="hidden" value="{{prj}}" name="prj">
+        </div>
+        <div>
+            <label for="u">ユーザを招待(ユーザのid名で書き、複数書く場合は「1,2,3」と書く)</label>
+            <input id="u" type="text" name="invite_users" required>
+        </div>
+        <div>
+            <input type="submit" value="招待">
+        </div>
+    </form>
+</body>
+</html>

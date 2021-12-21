@@ -24,6 +24,11 @@ def room(request, room_name):
 
 @login_required
 def project(request, project_id):
+    this_project = Project.objects.get(id = project_id)
+    user_formated = myformat_serialize(this_project.allow_users)
+    if not request.user.id in user_formated:
+        return redirect("top")
+
     data = {"prj_id": project_id}
     l = []
     articles = Article.objects.all()
@@ -36,6 +41,11 @@ def project(request, project_id):
 
 @login_required
 def article(request, project_id, article_id):
+    this_article = Article.objects.get(id = article_id)
+    user_formated = myformat_serialize(this_article.allow_users)
+    if not request.user.id in user_formated:
+        return redirect("project", project_id)
+
     data = {"article_id": article_id, "prj_id": project_id}
     article_1 = Article.objects.get(id = article_id)
     article_result = {
@@ -63,7 +73,10 @@ def make_project(request):
         if "on_public" in request.POST:
             on_public = request.POST["on_public"]
             my_on_public = True
-        result = Project(name = name, created_at = now_time, on_public = my_on_public)
+        
+        user = request.user.id#作成ユーザを取得し、そのユーザにアクセス権限を付与
+        user_formated = str(user) + ","
+        result = Project(allow_users = user_formated, name = name, created_at = now_time, on_public = my_on_public)
         result.save()
 
     return render(request, 'chat/newproject.html')
@@ -73,7 +86,9 @@ def make_article(request, project_id):
     data = {"prj_id": project_id}
     if request.method == "POST":
         name = request.POST["name"]
-        new = Article(prj = Project(id = project_id), title = name)
+        user = request.user.id#作成ユーザを取得し、そのユーザにアクセス権限を付与
+        user_formated = str(user) + ","
+        new = Article(allow_users = user_formated, prj = Project(id = project_id), title = name)
         new.save()
         return redirect("project", project_id)
 
@@ -81,11 +96,42 @@ def make_article(request, project_id):
 
 @login_required
 def invite_project(request, project_id):
-    return HttpResponse("invite_project")
+    data = {"prj": project_id}
+    if request.method == "POST":
+        invite_users = request.POST["invite_users"]
+        invite_users += ","
+        this_project = Project.objects.get(id = project_id)
+        user_notformated = this_project.allow_users
+        user_notformated += invite_users
+        try:#ハッキング対策
+            a = myformat_serialize(user_notformated)
+            myformat_deserialize(a)
+            this_project.allow_users = user_notformated
+            this_project.save()
+        except:
+            return render(request, "chat/invite_project.html", data)
+
+
+    return render(request, "chat/invite_project.html", data)
 
 @login_required
 def invite_article(request, project_id, article_id):
-    return HttpResponse("invite_article")
+    data = {"prj": project_id, "article": article_id}
+    if request.method == "POST":
+        invite_users = request.POST["invite_users"]
+        invite_users += ","
+        this_article = Article.objects.get(id = article_id)
+        user_notformated = this_article.allow_users
+        user_notformated += invite_users
+        try:#ハッキング対策
+            a = myformat_serialize(user_notformated)
+            myformat_deserialize(a)
+            this_article.allow_users = user_notformated
+            this_article.save()
+        except:
+            return render(request, "chat/invite_article.html", data)
+
+    return render(request, "chat/invite_article.html", data)
 
 @login_required
 def search_project(request):
@@ -94,3 +140,21 @@ def search_project(request):
 @login_required
 def search_article(request, project_id):
     return HttpResponse("search_article")
+
+def myformat_serialize(string):#独自のフォーマットをリスト化
+    result = []
+    ichiji = ""
+    for a in string:
+        if a == ",":
+            result.append(int(ichiji))
+            ichiji = ""
+        else:
+            ichiji += a
+    return result
+
+def myformat_deserialize(lists):#独自のフォーマットを文字列化
+    string = ""
+    for b in lists:
+        string += str(b)
+        string += ","
+    return string
