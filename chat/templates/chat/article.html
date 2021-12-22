@@ -13,10 +13,12 @@
 <body class="container">
     <h1>記事名:{{article_1.title}}</h1>
     <p>あなたのユーザ名:{{user.username}} ユーザID:{{user.id}}</p>
-    <b>ウィンドウの画面を広げて使わないとマークダウンが見えないので注意してください(デザインで後で直す)</b>
+    <b>ウィンドウの画面を広げて使わないとマークダウンが見えないので注意してください(デザインで後で直す)</b><br>
+    <a href="{% url 'project' prj_id %}">プロジェクト一覧ページに戻る</a>
     <p>記事番号:<span id="name">{{article_id}}</span></p><br>
     <p>最終変更:<span id="time">{{article_1.update_at}}</span></p>
     <a href={% url 'invite_article' prj_id article_id %}>記事に招待</a>
+    <a href={% url 'exclude_article' prj_id article_id %}>記事から除外</a>
     <div class="row my_grid">
         <div class="col-6">
             <textarea rows="100" cols="70" id="text">{{article_1.content}}</textarea>

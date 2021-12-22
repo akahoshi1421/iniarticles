@@ -9,6 +9,7 @@
 <body>
     <h1>記事にユーザを招待する</h1>
     <p>あなたのユーザ名:{{user.username}} ユーザID:{{user.id}}</p>
+    <a href="{% url 'article' prj article %}">記事編集画面に戻る</a>
     <form action="{% url 'invite_article' prj article %}" method="POST" name="form">
         {% csrf_token %}
         <div>

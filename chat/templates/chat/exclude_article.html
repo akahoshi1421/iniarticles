@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>exclude_article</title>
+    <link rel="icon" type="image/png" href="{% static 'picture/favicon.png' %}">
+</head>
+<body>
+    <h1>記事からユーザを除外する</h1>
+    <p>あなたのユーザ名:{{user.username}} ユーザID:{{user.id}}</p>
+    <a href="{% url 'article' prj article %}">記事編集画面に戻る</a>
+    <form action="{% url 'exclude_article' prj article %}" method="POST" name="form">
+        {% csrf_token %}
+        <div>
+            <input type="hidden" value="{{article}}" name="prj">
+        </div>
+        <div>
+            <label for="u">ユーザを除外(ユーザのid名で書き、複数書く場合は「1,2,3」と書く)</label>
+            <input id="u" type="text" name="exclude_users" required>
+        </div>
+        <div>
+            <input type="submit" value="除外">
+        </div>
+    </form>
+    <h2>ユーザ一覧</h2>
+    <table>
+        <tr>
+            <td>ユーザ名</td>
+            <td>ユーザID</td>
+        </tr>
+        {% for user_one in users_list %}
+            <tr>
+                <td>{{user_one.name}}</td>
+                <td>{{user_one.id}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

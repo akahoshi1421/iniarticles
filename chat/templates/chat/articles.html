@@ -13,6 +13,7 @@
     <a href="{% url 'make_article' prj_id %}">記事を作成</a>
     <a href="{% url 'top' %}">プロジェクト一覧に戻る</a>
     <a href="{% url 'invite_project' prj_id %}">プロジェクトに招待</a>
+    <a href="{% url 'exclude_project' prj_id %}">プロジェクトから除外</a>
     <table>
     {% for article in articles %}
         <tr>

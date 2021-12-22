@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from chat.models import Project, Article
 import markdown
+from django.contrib.auth.models import User
 
 # Create your views here.
 @login_required
@@ -140,6 +141,72 @@ def search_project(request):
 @login_required
 def search_article(request, project_id):
     return HttpResponse("search_article")
+
+@login_required
+def exclude_project(request, project_id):
+    data = {"prj": project_id}
+    this_project = Project.objects.get(id = project_id)
+    allow_users = this_project.allow_users
+    allow_users_lists = myformat_serialize(allow_users)
+    result = []
+    for user in allow_users_lists:
+        user_one = User.objects.get(id = user)
+        user_one_dict = {"name": user_one.username, "id": user_one.id}
+        result.append(user_one_dict)
+    data["users_list"] = result
+
+    if request.method == "POST":
+        exclude_users = request.POST["exclude_users"]
+        exclude_users += ","
+        try:#ハッキング対策
+            formated = myformat_serialize(exclude_users)
+            if len(allow_users_lists) == 1:#アクセス権限がある人が1人だけである場合、権限を剝奪させないようにする
+                return render(request, "chat/exclude_project.html", data)
+
+            exclude_result = []
+            for user in allow_users_lists:
+                if not user in formated:
+                    exclude_result.append(user)
+            this_project.allow_users = myformat_deserialize(exclude_result)
+            this_project.save()
+        except:
+            return render(request, "chat/exclude_project.html", data)
+        return redirect("exclude_project", project_id)
+
+    return render(request, "chat/exclude_project.html", data)
+
+@login_required
+def exclude_article(request, project_id, article_id):
+    data = {"prj": project_id, "article": article_id}
+    this_article = Article.objects.get(id = article_id)
+    allow_users = this_article.allow_users
+    allow_users_lists = myformat_serialize(allow_users)
+    result = []
+    for user in allow_users_lists:
+        user_one = User.objects.get(id = user)
+        user_one_dict = {"name": user_one.username, "id": user_one.id}
+        result.append(user_one_dict)
+    data["users_list"] = result
+
+    if request.method == "POST":
+        exclude_users = request.POST["exclude_users"]
+        exclude_users += ","
+        try:#ハッキング対策
+            formated = myformat_serialize(exclude_users)
+            if len(allow_users_lists) == 1:#アクセス権限がある人が1人だけである場合、権限を剝奪させないようにする
+                return render(request, "chat/exclude_article.html", data)
+
+            exclude_result = []
+            for user in allow_users_lists:
+                if not user in formated:
+                    exclude_result.append(user)
+            this_article.allow_users = myformat_deserialize(exclude_result)
+            this_article.save()
+        except:
+            return render(request, "chat/exclude_article.html", data)
+        return redirect("exclude_article", project_id, article_id)
+
+    return render(request, "chat/exclude_article.html", data)
 
 def myformat_serialize(string):#独自のフォーマットをリスト化
     result = []

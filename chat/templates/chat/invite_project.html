@@ -9,6 +9,7 @@
 <body>
     <h1>プロジェクトにユーザを招待する</h1>
     <p>あなたのユーザ名:{{user.username}} ユーザID:{{user.id}}</p>
+    <a href="{% url 'project' prj %}">プロジェクト一覧ページに戻る</a>
     <form action="{% url 'invite_project' prj %}" method="POST" name="form">
         {% csrf_token %}
         <div>
