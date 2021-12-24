@@ -89,7 +89,13 @@ def invite_article(request, project_id, article_id):
 
 @login_required
 def search_project(request):
-    return HttpResponse("search_project")
+    data = {}
+    if request.method == "POST":
+        content = request.POST["project_search"]
+        results = Project.objects.filter(name = content)
+        data["results"] = results
+    return render(request, "chat/search_projects.html", data)
+
 
 @login_required
 def search_article(request, project_id):

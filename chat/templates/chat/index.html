@@ -17,5 +17,16 @@
         {% endif %}
         {% endfor %}
     </table>
+    <form action="{% url 'search_project' %}" method="POST" name="form3">
+        {% csrf_token %}
+        <div>
+            <label>プロジェクト検索</label>
+            <input type="text" name="project_search" id="project_search">
+            <ul id = "user_result"></ul>
+        </div>
+        <div>
+            <input type="submit" value="検索">
+        </div>
+    </form>
 </body>
 </html>
