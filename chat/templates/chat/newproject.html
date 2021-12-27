@@ -11,17 +11,17 @@
     <link rel="icon" type="image/png" href="{% static 'picture/favicon.png' %}">
 </head>
 <body>
-    <h2>プロジェクト新規作成</h2>
+    <h2>プロジェクト新規作成ページ</h2>
     <p>あなたのユーザ名:{{user.username}} ユーザID:{{user.id}}</p>
     <a href="{% url 'top' %}">プロジェクト一覧に戻る</a>
     <form action="{% url 'make_project' %}" method="POST" name="form">
         {% csrf_token %}
         <div>
-            <label>プロジェクト名</label>
+            <label>新規プロジェクト名</label>
             <input type="text" name="name">
         </div>
         <div>
-            <label>プロジェクト一覧ページに追加する</label>
+            <label>新規プロジェクトを一覧ページに追加する</label>
             <input type="checkbox" name="on_public" value="False">
         </div>
         <div>

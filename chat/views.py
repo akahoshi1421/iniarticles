@@ -79,6 +79,7 @@ def make_project(request):
         user_formated = str(user) + ","
         result = Project(allow_users = user_formated, name = name, created_at = now_time, on_public = my_on_public)
         result.save()
+        return redirect("top")
 
     return render(request, 'chat/newproject.html')
 
@@ -114,6 +115,28 @@ def invite_project(request, project_id):
 
 
     return render(request, "chat/invite_project.html", data)
+
+@login_required
+def edit_project(request, project_id):
+    data = {}
+    if request.method == 'POST':
+        try:
+            this_project = Project.objects.get(id = project_id)
+            if request.POST["which"] == "edit":
+                this_project.name = request.POST["name"]
+                #now_time = timezone.now() # 時間
+                this_project.save()
+                return redirect("top")
+            
+            else:
+                this_project.delete()
+                return redirect("top")
+        
+        except:
+            pass
+
+    data = {"prj_id": project_id}
+    return render(request, "chat/edit_project.html", data)
 
 @login_required
 def invite_article(request, project_id, article_id):
