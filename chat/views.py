@@ -79,6 +79,7 @@ def make_project(request):
         user_formated = str(user) + ","
         result = Project(allow_users = user_formated, name = name, created_at = now_time, on_public = my_on_public)
         result.save()
+        return redirect("top")
 
     return render(request, 'chat/newproject.html')
 
