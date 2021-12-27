@@ -116,6 +116,28 @@ def invite_project(request, project_id):
     return render(request, "chat/invite_project.html", data)
 
 @login_required
+def edit_project(request, project_id):
+    data = {}
+    if request.method == 'POST':
+        try:
+            this_project = Project.objects.get(id = project_id)
+            if request.POST["which"] == "edit":
+                this_project.name = request.POST["name"]
+                #now_time = timezone.now() # 時間
+                this_project.save()
+                return redirect("top")
+            
+            else:
+                this_project.delete()
+                return redirect("top")
+        
+        except:
+            pass
+
+    data = {"prj_id": project_id}
+    return render(request, "chat/edit_project.html", data)
+
+@login_required
 def invite_article(request, project_id, article_id):
     data = {"prj": project_id, "article": article_id}
     if request.method == "POST":
