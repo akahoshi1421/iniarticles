@@ -6,9 +6,9 @@ function hanei(event)
 {
     let room = document.getElementById("name");
     let text_in = event.currentTarget.value;
+
     markdown_socket.send(JSON.stringify({"message":text_in, "room_name":room.textContent}));
 }
-
 
 function init()
 {

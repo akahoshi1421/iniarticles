@@ -48,3 +48,78 @@ class ChatConsumer(WebsocketConsumer):
         }
         # Send message to WebSocket
         self.send(text_data=json.dumps({'message': data, "message_markdown": markdown.markdown(message)}))
+
+class ChatConsumer2(WebsocketConsumer):#タイトルを弄るための専用のやつ
+    def connect(self):
+        self.room_name = self.scope['url_route']['kwargs']['room_name']
+        self.room_group_name = ('chat_%s' % self.room_name) + "2"
+        # Join room group
+        async_to_sync(self.channel_layer.group_add)(
+            self.room_group_name,
+            self.channel_name
+        )
+        self.accept()
+    def disconnect(self, close_code):
+        # Leave room group
+        async_to_sync(self.channel_layer.group_discard)(
+            self.room_group_name,
+            self.channel_name
+        )
+    # Receive message from WebSocket
+    def receive(self, text_data):
+        text_data_json = json.loads(text_data)
+        message = text_data_json['newtitle']
+        room = text_data_json["room_name"]
+        result_get = Article.objects.get(id = room)
+        result_get.title = message
+        result_get.update_at = timezone.now()
+        result_get.save()
+        # Send message to room group
+        async_to_sync(self.channel_layer.group_send)(
+            self.room_group_name,
+            { 'type': 'chat_message', 'message': result_get.id }
+        )
+    # Receive message from room group
+    def chat_message(self, event):
+        message_id = event['message']
+        result_get = Article.objects.get(id = int(message_id))
+        message = result_get.title
+        data = {
+            "newtitle": message,
+            "update_at": str(result_get.update_at)
+        }
+        # Send message to WebSocket
+        self.send(text_data=json.dumps({'titles': data}))
+
+class ChatConsumer3(WebsocketConsumer):#タイトルを消すための専用のやつ
+    def connect(self):
+        self.room_name = self.scope['url_route']['kwargs']['room_name']
+        self.room_group_name = ('chat_%s' % self.room_name) + "3"
+        # Join room group
+        async_to_sync(self.channel_layer.group_add)(
+            self.room_group_name,
+            self.channel_name
+        )
+        self.accept()
+    def disconnect(self, close_code):
+        # Leave room group
+        async_to_sync(self.channel_layer.group_discard)(
+            self.room_group_name,
+            self.channel_name
+        )
+    # Receive message from WebSocket
+    def receive(self, text_data):
+        text_data_json = json.loads(text_data)
+        room = text_data_json["room_name"]
+        result_get = Article.objects.get(id = room)
+        result_get.delete()
+        # Send message to room group
+        async_to_sync(self.channel_layer.group_send)(
+            self.room_group_name,
+            { 'type': 'chat_message'}
+        )
+    # Receive message from room group
+    def chat_message(self, event):
+        # Send message to WebSocket
+        print("aaa")
+        self.send(text_data=json.dumps({'delete': "true"}))
