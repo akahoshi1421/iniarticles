@@ -11,15 +11,16 @@
     <link rel="icon" type="image/png" href="{% static 'picture/favicon.png' %}">
 </head>
 <body>
-    <h2>プロジェクト名編集、削除</h2>
+    <h2>プロジェクト名を編集または、プロジェクトを削除するページ</h2>
     <p>あなたのユーザ名:{{user.username}} ユーザID:{{user.id}}</p>
     <a href="{% url 'top' %}">プロジェクト一覧に戻る</a>
     <form action="{% url 'edit_project' prj_id %}" method="POST" name="form">
         {% csrf_token %}
         <div>
-            <label>プロジェクト名</label>
+            <label>編集後のプロジェクト名</label>
             <input type="text" name="name">
         </div>
+        <p>プロジェクトをどうしますか？</p>
         <div>
             <label>編集</label>
             <input type="radio" value="edit" name="which">
