@@ -17,5 +17,16 @@
         </tr>
     {% endfor %}
     </table>
+    <form action="{% url 'search_article' prj_id %}" method="POST" name="form">
+        {% csrf_token %}
+        <div>
+            <label>記事検索</label>
+            <input type="text" name="article_search" id="article_search">
+            <ul id = "user_result"></ul>
+        </div>
+        <div>
+            <input type="submit" value="検索">
+        </div>
+    </form>
 </body>
 </html>

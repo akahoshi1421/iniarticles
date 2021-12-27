@@ -99,4 +99,9 @@ def search_project(request):
 
 @login_required
 def search_article(request, project_id):
-    return HttpResponse("search_article")
+    data = {"prj_id": project_id}
+    if request.method == "POST":
+        content = request.POST["article_search"]
+        results = Article.objects.filter(title = content)
+        data["results"] = results
+    return render(request, "chat/search_article.html", data)
