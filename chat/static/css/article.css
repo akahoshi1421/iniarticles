@@ -9,3 +9,46 @@
 .components{
     color: #ffffff;
 }
+
+header{
+    background-color: #4c57a2;
+    padding-bottom: 2%;
+}
+
+.title-article{
+    padding-left: 3%;
+    font-family: 'Noto Serif JP', serif;
+}
+
+.titles-font{
+    font-family: 'Noto Serif JP', serif;
+}
+
+.line{
+    background-color: #292e62;
+    padding-top: 3px;
+}
+
+.components-article{
+    background-color: #3d4490;
+    padding-top: 1%;
+    padding-right: 3%;
+    padding-left: 2%;
+}
+
+.right{
+    text-align: right;
+    padding-right: 2%;
+}
+
+.yohaku{
+    padding-top: 1%;
+}
+
+.info-article{
+    background-color: #e2e2e4;
+}
+
+.mintyo{
+    font-family: 'Shippori Mincho', serif;
+}

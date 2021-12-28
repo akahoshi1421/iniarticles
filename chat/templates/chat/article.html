@@ -11,39 +11,49 @@
     <script src="{% static 'js/article2.js' %}"></script>
     <script src="{% static 'js/article3.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/article.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;900&family=Shippori+Mincho&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 </head>
 
 <body class="background">
+    
+    <header>
+        <h1 class="display-2 components title-article">記事編集</h1>
+        <div class="position-absolute top-0 end-0 row">
+            <p class="components">あなたのユーザ名:{{user.username}} ユーザID:{{user.id}}　</p>
+        </div>
+        <div class="line"></div>
+        <div class="right">
+            <a href="{% url 'project' prj_id %}" class="link-light"><span>プロジェクト一覧ページに戻る</span></a>
+        </div>
+        
+    </header>
     <div class="container">
-    <h1 class="display-1 components">記事編集</h1>
-    <div class="position-absolute top-0 end-0 row">
-        <p class="components">あなたのユーザ名:{{user.username}} ユーザID:{{user.id}}　</p>
-    </div>
-    <div class="form-group">
-        <label for="title" class="col-form-label components">記事名:</label>
-        <input type="text" value="{{article_1.title}}" id="title" class="form-control w-50">
-    </div>
-    <p id="prj_id" class="d-none">{{prj_id}}</p>
-    <a href="{% url 'project' prj_id %}" class="link-success"><span>プロジェクト一覧ページに戻る</span></a>
-    <div class="bg-light p-1 mb-2 w-50 rounded">
-        <p>記事番号:<span id="name">{{article_id}}</span>
-        最終変更:<span id="time">{{article_1.update_at}}</span></p>
-    </div>
-    <div class="btn-group" role="group">
-        <a class="btn btn-success" href="{% url 'invite_article' prj_id article_id %}" role="button">記事に招待</a>
-        <a class="btn btn-success" href="{% url 'exclude_article' prj_id article_id %}" role="button">記事から除外</a>
-    </div>
-    <button onclick="delete_article()" class="btn btn-danger">削除</button>
-    <div class="mb-2"></div>
-    <div class="row my_grid shadow-lg">
-        <div class="col-6 form-group ">
-            <textarea rows="100" cols="70" id="text" class="form-control">{{article_1.content}}</textarea>
+        <div class="form-group">
+            <label for="title" class="col-form-label components mintyo">記事名:</label>
+            <input type="text" value="{{article_1.title}}" id="title" class="form-control w-50">
         </div>
-        <div class="col-6 background2 rounded-3">
-            <div id = "md">{{article_md}}</div>
+        <p id="prj_id" class="d-none">{{prj_id}}</p>
+        <div class="yohaku"></div>
+        <div class="p-1 mb-2 w-50 rounded info-article">
+            <p>記事番号:<span id="name">{{article_id}}</span>
+            最終変更:<span id="time">{{article_1.update_at}}</span></p>
         </div>
-    </div>
+        <div class="btn-group" role="group">
+            <a class="btn btn-success" href="{% url 'invite_article' prj_id article_id %}" role="button">記事に招待</a>
+            <a class="btn btn-success" href="{% url 'exclude_article' prj_id article_id %}" role="button">記事から除外</a>
+        </div>
+        <button onclick="delete_article()" class="btn btn-danger">削除</button>
+        <div class="mb-2"></div>
+        <div class="row my_grid shadow-lg rounded-3 components-article">
+            <p class="components fs-4 titles-font">※マークダウン記法で書いてください</p>
+            <div class="col-6 form-group ">
+                <textarea rows="100" cols="70" id="text" class="form-control">{{article_1.content}}</textarea>
+            </div>
+            <div class="col-6 background2 rounded-3">
+                <div id = "md">{{article_md}}</div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
