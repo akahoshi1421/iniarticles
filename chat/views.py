@@ -105,3 +105,20 @@ def search_article(request, project_id):
         results = Article.objects.filter(title = content)
         data["results"] = results
     return render(request, "chat/search_article.html", data)
+
+@login_required
+@csrf_exempt
+def apiuser(request):
+    if request.method == "POST":
+        user_data = request.POST["user"]
+        content = Project.objects.filter(name__startswith = user_data)
+        l = []
+        for a in content:
+            if not a.name in l:
+                l.append(a.name)
+        
+        data = {"users": l}
+        return JsonResponse(data)
+    
+    else:
+        return HttpResponse("ERROR")

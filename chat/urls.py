@@ -11,5 +11,6 @@ urlpatterns = [
     path('<int:project_id>/<int:article_id>/invite/', views.invite_article, name='invite_article'),
     path('searchproject/', views.search_project, name='search_project'),
     path('<int:project_id>/searcharticles/', views.search_article, name='search_article'),
+    path("api/name", views.apiuser, name="apiuser"),
 ]
 

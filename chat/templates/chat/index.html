@@ -1,8 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <!-- chat/templates/chat/index.html -->
 <html>
 <head>
     <meta charset="utf-8"/>
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="{% static 'js/search_project.js' %}"></script>
     <title>Chat Rooms</title>
 </head>
 <body>
@@ -21,7 +24,7 @@
         {% csrf_token %}
         <div>
             <label>プロジェクト検索</label>
-            <input type="text" name="project_search" id="project_search">
+            <input type="text" name="projectsearch" id="project_search">
             <ul id = "user_result"></ul>
         </div>
         <div>
