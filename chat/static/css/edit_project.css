@@ -1,0 +1,25 @@
+.submit{
+    padding-top: 40px;
+}
+
+.blank-top{
+    padding-top: 2%;
+}
+
+.blank-left{
+    text-align: center;
+}
+
+.radio-blank{
+    top: 4px;
+    position: relative;
+    padding: 10px 10px 10px 10px;
+}
+
+.center{
+    text-align: center;
+}
+
+.delete{
+    margin-left: 100px;
+}
