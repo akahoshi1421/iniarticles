@@ -122,13 +122,13 @@ def edit_project(request, project_id):
     if request.method == 'POST':
         try:
             this_project = Project.objects.get(id = project_id)
-            if request.POST["which"] == "edit":
+            if "btn_edit" in request.POST:
                 this_project.name = request.POST["name"]
                 #now_time = timezone.now() # 時間
                 this_project.save()
                 return redirect("top")
             
-            else:
+            elif "btn_delete" in request.POST:
                 this_project.delete()
                 return redirect("top")
         
