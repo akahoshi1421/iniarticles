@@ -159,11 +159,14 @@ def invite_article(request, project_id, article_id):
 
 @login_required
 def search_project(request):
-    return HttpResponse("search_project")
+    data = {}
+    if request.method == "POST":
+        content = request.POST["project_search"]
+        results = Project.objects.filter(name__icontains = content)
+        data["results"] = results
+    return render(request, "chat/search_projects.html", data)
 
-@login_required
-def search_article(request, project_id):
-    return HttpResponse("search_article")
+
 
 @login_required
 def exclude_project(request, project_id):
@@ -248,3 +251,44 @@ def myformat_deserialize(lists):#独自のフォーマットを文字列化
         string += str(b)
         string += ","
     return string
+
+@login_required
+def search_article(request, project_id):
+    data = {"prj_id": project_id}
+    if request.method == "POST":
+        content = request.POST["article_search"]
+        results = Article.objects.filter(title__icontains = content,prj_id=project_id)
+        data["results"] = results
+    return render(request, "chat/search_article.html", data)
+
+@login_required
+@csrf_exempt
+def project_api(request):
+    if request.method == "POST":
+        user_data = request.POST["user"]
+        content = Project.objects.filter(name__icontains = user_data)
+        l = []
+        for a in content:
+            if not a.name in l:
+                l.append({"name":a.name,"id":a.id})
+        data={"result":l}
+        return JsonResponse(data)
+    
+    else:
+        return HttpResponse("ERROR")
+
+@csrf_exempt
+def article_api(request,project_id):
+    data = {"prj_id": project_id}
+    if request.method == "POST":
+        user_data = request.POST["user"]
+        content = Article.objects.filter(title__icontains = user_data,prj_id=project_id)
+        l = []
+        for a in content:
+            if not a.title in l:
+                l.append({"title":a.title,"prj_id":a.prj_id,"id":a.id})
+        data={"result":l}
+        return JsonResponse(data)
+    
+    else:
+        return HttpResponse("ERROR")

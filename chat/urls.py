@@ -12,7 +12,9 @@ urlpatterns = [
     path('<int:project_id>/<int:article_id>/invite/', views.invite_article, name='invite_article'),
     path('<int:project_id>/exclude/', views.exclude_project, name='exclude_project'),
     path('<int:project_id>/<int:article_id>/exclude/', views.exclude_article, name='exclude_article'),
-    path('searchprojects/', views.search_project, name='search_project'),
-    path('<int:project_id>/searcharticles/', views.search_article, name='search_article'),
+    path('search/project/', views.search_project, name='search_project'),
+    path('<int:project_id>/search/articles/', views.search_article, name='search_article'),
+    path("api/search/project", views.project_api, name="project_api"),
+    path("<int:project_id>/api/search/article", views.article_api, name="article_api"),
 ]
 
