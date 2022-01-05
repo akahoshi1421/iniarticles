@@ -2,7 +2,7 @@ function search_js(event)
 {
     let user = event.currentTarget.value;
     $.ajax({
-        url: window.location.origin+window.location.pathname+ "search/article",
+        url: window.location.origin+window.location.pathname+ "api/search/article",
         type: "POST",
         data: {"user": user},
         dataType:"json",

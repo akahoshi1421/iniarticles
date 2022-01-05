@@ -8,11 +8,13 @@
 </head>
 <body>
     <h1>結果</h1>
-    {% if results %}
+    <ul>
+        {% if results %}
         {% for result in results %}
-            <a href="{% url 'article' prj_id result.id %}">{{result.title}}</a> {{result.update_at}}
+        <li><a href="{% url 'article' prj_id result.id %}">{{result.title}}</a> {{result.update_at}}</li>
         {% endfor %}
-    {% endif %}
+        {% endif %}
+    </ul>
     <a href="{% url 'top' %}">プロジェクト一覧に戻る</a>
 </body>
 </html>

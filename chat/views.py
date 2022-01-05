@@ -92,7 +92,7 @@ def search_project(request):
     data = {}
     if request.method == "POST":
         content = request.POST["project_search"]
-        results = Project.objects.filter(name = content)
+        results = Project.objects.filter(name__icontains = content)
         data["results"] = results
     return render(request, "chat/search_projects.html", data)
 
@@ -102,7 +102,7 @@ def search_article(request, project_id):
     data = {"prj_id": project_id}
     if request.method == "POST":
         content = request.POST["article_search"]
-        results = Article.objects.filter(title = content,prj_id=project_id)
+        results = Article.objects.filter(title__icontains = content,prj_id=project_id)
         data["results"] = results
     return render(request, "chat/search_article.html", data)
 
@@ -111,7 +111,7 @@ def search_article(request, project_id):
 def project_api(request):
     if request.method == "POST":
         user_data = request.POST["user"]
-        content = Project.objects.filter(name__startswith = user_data)
+        content = Project.objects.filter(name__icontains = user_data)
         l = []
         for a in content:
             if not a.name in l:
@@ -127,7 +127,7 @@ def article_api(request,project_id):
     data = {"prj_id": project_id}
     if request.method == "POST":
         user_data = request.POST["user"]
-        content = Article.objects.filter(title__startswith = user_data,prj_id=project_id)
+        content = Article.objects.filter(title__icontains = user_data,prj_id=project_id)
         l = []
         for a in content:
             if not a.title in l:
