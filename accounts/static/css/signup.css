@@ -1,0 +1,49 @@
+ul {
+    list-style: none;
+}
+
+.body{
+    /*background-color: #7890d6;*/
+    background-color: #f7f9fd;
+}
+
+.form-color{
+    background-color: #ffffff;
+}
+
+.form{
+    height: 120px;
+}
+
+input{
+    height: 40px;
+}
+
+.item{
+    left: 11%;
+    position: relative;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.submit{
+    padding-top: 7px;
+    text-align: center;
+    position: relative;
+}
+
+.form-content{
+    height: 400px;
+}
+
+.center{
+    text-align: center;
+}
+
+.title{
+    font-family: 'Satisfy', cursive;
+}
+
+.height{
+    height: 30px;
+}
