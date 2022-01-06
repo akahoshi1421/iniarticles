@@ -1,20 +1,55 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;900&family=Shippori+Mincho&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="{% static 'picture/favicon.png' %}">
+    <title>検索結果</title>
+    <!--似たような感じなので流用-->
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <script src="{% static 'js/account.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/hinagata.css' %}">
 </head>
-<body>
-    <h1>結果</h1>
-    <ul>
-        {% if results %}
-        {% for result in results %}
-        <li><a href="{% url 'project' result.id %}">{{result.name}}</a> {{result.created_at}}</li>
-        {% endfor %}
-        {% endif %}
-    </ul>
-    <a href="{% url 'top' %}">プロジェクト一覧に戻る</a>
+<body class="background">
+    <header>
+        <h1 class="display-2 components title-article">INIArticles</h1>
+        <div class="position-absolute top-0 end-0">
+            <div class="account">
+                <svg xmlns="http://www.w3.org/2000/svg" height="72px" viewBox="0 0 24 24" width="72px" fill="#e9ecf1" id="target"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM7.07 18.28c.43-.9 3.05-1.78 4.93-1.78s4.51.88 4.93 1.78C15.57 19.36 13.86 20 12 20s-3.57-.64-4.93-1.72zm11.29-1.45c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33C4.62 15.49 4 13.82 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.49-1.64 4.83zM12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6zm0 5c-.83 0-1.5-.67-1.5-1.5S11.17 8 12 8s1.5.67 1.5 1.5S12.83 11 12 11z"/></svg>
+            </div>
+        </div>
+        <div class="line"></div>
+        <h2 class="position-absolute components titles-font bar-1">検索結果</h2>
+        <div class="white-border modoru">
+            <a href="{% url 'top' %}" class="a_button migi position-absolute">プロジェクト一覧に戻る</a>
+        </div>    
+        <div class="d-none" id="user-info">
+            <p class="components-black user-info-font">ユーザ名: {{user.username}}</p>
+            <p class="components-black user-info-font">ユーザID: {{user.id}}　</p>
+        </div>
+    </header>
+    <main class="main">
+        <div class="container">
+            <table class="table w-100 table-color">
+                <tr class="tr-title">
+                    <td class="mintyo fs-4">プロジェクト名</td>
+                    <td class="mintyo fs-4">作成日時</td>
+                </tr>
+                {% if results %}
+                {% for result in results %}
+                <tr>
+                    <td class="fs-5"><a href="{% url 'project' result.id %}" class="link-success">{{result.name}}</a></td>
+                    <td class="fs-5">{{result.created_at}}</td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+            </table>
+        </div>
+    </main>
 </body>
 </html>

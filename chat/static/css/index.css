@@ -1,0 +1,42 @@
+.table-color{
+    background-color: #D5D7EA;
+}
+
+.search{
+    top: 30px;
+    left: 40%;
+    position: absolute;
+    width: 100%;
+}
+
+.tr-title{
+    border-bottom: #000000 solid 1px;
+}
+
+ul {
+    list-style: none;
+}
+
+.suggest{
+    background-color: #ffffff;
+    width: 40%;
+    left: 5%;
+    position: relative;
+}
+
+.search-prediction{
+    top: 10px;
+    position: relative;
+}
+
+.search-height{
+    height: 10px;
+}
+
+hr{
+    width: 95%;
+}
+
+.none{
+    display: none;
+}

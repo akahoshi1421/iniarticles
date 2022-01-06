@@ -1,5 +1,9 @@
-img{
-    zoom: 65%;
+.img{
+    background-image: url("../picture/PC_result2.png");
+    background-size: 550px;
+    background-repeat: no-repeat;
+    top: 100px;
+    position: relative;
 }
 
 ul {
@@ -32,7 +36,7 @@ body{
 }
 
 .item{
-    left: 7%;
+    left: 9%;
     position: relative;
     padding-top: 7px;
     padding-bottom: 7px;
@@ -66,5 +70,22 @@ form{
 
 .regist-p{
     top: 20px;
+    position: relative;
+}
+
+/*.imges{
+    top: -555px;
+    left: 410px;
+    position: relative;
+}*/
+
+img{
+    zoom: 90%;
+    top: 97px;
+    left: 332px;
+    position: absolute;
+}
+
+.slide {
     position: relative;
 }

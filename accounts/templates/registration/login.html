@@ -14,7 +14,11 @@
   <body class="container">
     <div class="row">
      <div class="col-7 img">
-        <img src="{% static 'picture/PC_result1.png' %}">
+       <div class="slide">
+          <img src="{% static 'picture/その1.PNG' %}" class="imges">
+          <img src="{% static 'picture/その2.PNG' %}" class="imges">
+          <img src="{% static 'picture/その3.PNG' %}" class="imges">
+       </div>
       </div>
       <div class="col-5 form-background">
         <div class="shadow form-color form-content rounded">
@@ -33,7 +37,7 @@
                 {% endfor %}
               </ul>
               <div class="submit">
-                <input type="submit" value="ログイン" class="btn btn-success w-100">
+                <input type="submit" value="ログイン" class="btn btn-success w-75">
               </div>
               
           </form>

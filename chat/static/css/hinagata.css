@@ -26,12 +26,11 @@ header{
 .title-article{
     padding-left: 3%;
     font-family: 'Noto Serif JP', serif;
-    text-align: center;
 }
 
 .bar-1{
     padding-left: 3%;
-    padding-top: 20px;
+    padding-top: 15px;
     font-size: 170%;
 }
 
@@ -47,6 +46,7 @@ header{
 .migi{
     right: 2%;
 }
+
 
 .main{
     padding-top: 180px;
