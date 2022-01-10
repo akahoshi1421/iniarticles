@@ -22,6 +22,19 @@ $(window).on("resize", function(){
     }
 });
 
+$(window).on("load", function(){
+    let size = $(this).width();
+    if(size <= 1000){
+        $(".img").each(function(){
+            $(this).removeClass("col-7");
+            $(this).addClass("none");
+        });
+        $(".form-background").each(function(){
+            $(this).removeClass("col-5");
+        });
+    }
+});
+
 $(function() {
     $('.slide').each(function() {
       // スライド（画像）の数を取得
