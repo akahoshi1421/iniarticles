@@ -25,6 +25,8 @@ header{
 
 .title-article{
     padding-left: 3%;
+    top: 15px;
+    position: relative;
     font-family: 'Noto Serif JP', serif;
 }
 
@@ -49,7 +51,7 @@ header{
 
 
 .main{
-    padding-top: 180px;
+    padding-top: 200px;
     z-index: 10; 
 }
 
@@ -115,3 +117,10 @@ header{
     font-size: 120%;
 }
 
+.fav-img{
+    zoom: 20%;
+}
+
+ul li{
+    display: inline-block;
+}

@@ -18,7 +18,10 @@
 </head>
 <body class="background">
     <header>
-        <h1 class="display-2 components title-article">INIArticles</h1>
+        <ul>
+            <li><a href="{% url 'top' %}"><img src="{% static 'picture/favicon.png' %}" class="fav-img"></a><li>
+            <li><h1 class="display-4 components title-article">INIArticles</h1></li>
+        </ul>
         <div class="search">
             <form action="{% url 'search_article' prj_id %}" method="POST" name="form">
                 {% csrf_token %}
@@ -38,7 +41,7 @@
         <div class="line"></div>
         <h2 class="position-absolute components titles-font bar-1">記事一覧</h2>
         <div class="white-border modoru">
-            <ul>
+            <ul class="article-ul">
                 <li><a href="{% url 'make_article' prj_id %}" class="a_button2 migi2 position-absolute">記事作成</a></li>
                 <li><a href="{% url 'top' %}" class="a_button2 migi position-absolute">プロジェクト一覧に戻る</a></li>
             </ul>

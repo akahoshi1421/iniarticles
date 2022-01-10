@@ -17,7 +17,10 @@
 </head>
 <body class="background">
     <header>
-        <h1 class="display-2 components title-article">INIArticles</h1>
+        <ul>
+            <li><a href="{% url 'top' %}"><img src="{% static 'picture/favicon.png' %}" class="fav-img"></a><li>
+            <li><h1 class="display-4 components title-article">INIArticles</h1></li>
+        </ul>
         <div class="search">
             <form action="{% url 'search_project' %}" method="POST" name="form3">
                 {% csrf_token %}

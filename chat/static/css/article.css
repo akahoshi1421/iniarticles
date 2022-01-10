@@ -24,6 +24,8 @@ header{
 
 .title-article{
     padding-left: 3%;
+    top: 15px;
+    position: relative;
     font-family: 'Noto Serif JP', serif;
 }
 
@@ -170,4 +172,12 @@ header{
 }
 .user-info-font{
     font-size: 120%;
+}
+
+.fav-img{
+    zoom: 20%;
+}
+
+ul li{
+    display: inline-block;
 }
