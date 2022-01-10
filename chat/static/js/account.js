@@ -19,3 +19,10 @@ function leave()
     account.classList.add("d-none");
 }
 
+$(document).on("click", "#target",function(){
+    let check = confirm("ログアウトしますか？");
+    if(check){
+        window.location = window.location.origin + "/accounts/logout";
+    }
+});
+

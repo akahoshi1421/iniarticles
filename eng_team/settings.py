@@ -132,7 +132,7 @@ ASGI_APPLICATION = 'eng_team.asgi.application'
 
 
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = 'top'
 LOGOUT_REDIRECT_URL = 'login'
 
 CHANNEL_LAYERS = {
